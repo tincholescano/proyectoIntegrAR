@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        <h3>Iniciar Sesión</h3>
+        
+        {% if messages %}
+          {% for message in messages %}
+            <div class="card-panel red lighten-2 white-text">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+        
+        <form method="post" class="center row">
+            {% csrf_token %}
+            <div class="input-field col s12">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="input-field col s12">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="btn-large waves-effect waves-light blue-grey">Iniciar Sesión</button>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div class="center">
+        <p>No tienes cuenta?</p>
+        <button onclick="location.href='{% url 'registro' %}'" class="btn-large waves-effect waves-light blue-grey">Registrarse</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

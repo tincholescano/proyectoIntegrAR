@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<body>
+    {% include 'navbar.html' %}
+    <div class="row center">
+        <div class="row col s12">
+            <a onclick="location.href='{% url 'tramites' %}'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">work</i>Tramites y Documentos</a>
+        </div>
+        <div class="row col s12">    
+            <a onclick="location.href='{% url 'salud' %}'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">local_hospital</i>Salud</a>
+        </div>
+        <div class="row">    
+            <a onclick="location.href='{% url 'educacion' %}'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">school</i>Educacion</a>
+        </div>
+        <div class="row">    
+            <a onclick="location.href='{% url 'capacitaciones' %}'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">web</i>Capacitaciones</a>
+        </div>
+        <div class="row">    
+            <a onclick="location.href='#'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">people</i>Asistencia</a>
+        </div>
+            {% if user.is_authenticated %}
+                <div class="row">    
+                    <a onclick="location.href='{% url 'crear_consulta' %}'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">create_new_folder</i>Crear Consulta</a>
+                </div>
+            {% endif %}
+    </div>
+        <h1>Noticias</h1>
+
+    <div class="row">
+        <div class="col s6 m4">
+            {% for consulta in consultas %}
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">{{ consulta.titulo }}</span>
+                    <p>{{ consulta.descripcion }}</p>
+                </div>
+            </div>
+            {% empty %}
+                <p>No hay Noticias.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

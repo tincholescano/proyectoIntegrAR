@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<body>
+    {% include 'navbar.html' %}
+    
+    <h1>Modalidades de Capacitacion</h1>
+    <div class="row center">
+        <a onclick="location.href='{% url 'presencial' %}'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">people</i>Presencial</a>
+        <a onclick="location.href='{% url 'semipresencial' %}'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">devices</i>Semi Presencial</a>
+        <a onclick="location.href='{% url 'virtual' %}'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">ondemand_video</i>Virtual</a>
+    </div>
+
+    {% include 'footer.html' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

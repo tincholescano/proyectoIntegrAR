@@ -1,0 +1,35 @@
+{% include 'navbar.html' %}
+<div class="row center">
+  <form method="post" class="col s12">
+      {% csrf_token %}
+        <div class="input-field">
+            <label for="titulo">Título</label>
+            <input type="text" name="titulo" id="titulo" required>
+        </div><br>
+      <div class="input-field">
+          <label for="descripcion">Descripción</label>
+          <textarea name="descripcion" class="materialize-textarea" required></textarea>
+      </div><br>
+
+      <div class="input-field">
+          <select name="categoria" required>
+              <option value="" disabled selected>Elige una categoría</option>
+              {% for categoria in categorias %}
+                  <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+              {% endfor %}
+          </select>
+          <label for="categoria">Categoría</label>
+      </div><br>
+
+      <button type="submit" class="btn-large waves-effect waves-light blue-grey">Crear nueva consulta</button>
+  </form>
+</div>
+<!-- JavaScript de inicialización de Materialize -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+    });
+</script>

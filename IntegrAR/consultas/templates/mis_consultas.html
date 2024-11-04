@@ -1,0 +1,37 @@
+{% include 'navbar.html' %}
+
+
+<h1>Mis Consultas</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Mensaje</th>
+            <th>Fecha</th>
+            <th>Respuesta</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mensaje in mensajes %}
+        <tr>
+            <td>{{ mensaje.titulo }}</td>
+            <td>{{ mensaje.mensaje }}</td>
+            <td>{{ mensaje.fecha }}</td>
+            <td>{{ mensaje.respuesta|default:"Sin respuesta" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No has realizado ninguna consulta.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% include 'footer.html' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.collapsible');
+        var instances = M.Collapsible.init(elems, {});
+    });
+</script>

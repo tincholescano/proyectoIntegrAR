@@ -3,12 +3,11 @@
 <body>
     {% include 'navbar.html' %}
   
-    <h1>Consultas de Salud</h1>
     <ul class="collapsible popout">
         {% for consulta in consultas %}
         <li>
-          <div class="collapsible-header"><i class="material-icons">local_hospital</i>{{ consulta.titulo }}</div>
-          <div class="collapsible-body"><span>{{ consulta.descripcion }}</span></div>
+          <div class="collapsible-header light-blue-text text-darken-4"><i class="material-icons">local_hospital</i>{{ consulta.titulo }}</div>
+          <div class="collapsible-body light-blue-text text-darken-4"><span>{{ consulta.descripcion }}</span></div>
         </li>
         {% empty %}
             <p>No hay consultas en la categoría Salud</p>

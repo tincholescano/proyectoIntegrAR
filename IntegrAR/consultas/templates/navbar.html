@@ -6,16 +6,16 @@
 </head>
 
 <nav>
-  <div class="nav-wrapper blue-grey">
+    <div class="nav-wrapper light-blue darken-4">
       <a onclick="location.href='{% url 'inicio' %}'" class="brand-logo center">IntegrAR</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      
+
       <ul class="left hide-on-med-and-down">
           <li><a onclick="location.href='{% url 'tramites' %}'"><i class="material-icons left">work</i>Trámites y Documentos</a></li>
           <li><a onclick="location.href='{% url 'salud' %}'"><i class="material-icons left">local_hospital</i>Salud</a></li>
           <li><a onclick="location.href='{% url 'educacion' %}'"><i class="material-icons left">school</i>Educación</a></li>
           <li><a onclick="location.href='{% url 'capacitaciones' %}'"><i class="material-icons left">web</i>Capacitaciones</a></li>
-          <li><a onclick="location.href='#'"><i class="material-icons left">people</i>Asistencia</a></li>
+          <li><a onclick="location.href='{% url 'filtrar_consultas' %}'"><i class="material-icons left">people</i>Asistencia</a></li>
       </ul>
       <ul class="right hide-on-med-and-down">
         {% if user.is_authenticated %}
@@ -42,4 +42,42 @@
     </ul>
   </div>
 </nav>
+
+<ul class="sidenav" id="mobile-demo">
+    {% if not user.is_authenticated %}
+    <li>
+        <a onclick="location.href='{% url 'login' %}'"><i class="material-icons left">person</i>Iniciar Sesión</a>
+        <a onclick="location.href='{% url 'registro' %}'"><i class="material-icons left">person_add</i>Registrarse</a>
+    </li>
+    {% endif %}
+    <li><a onclick="location.href='{% url 'tramites' %}'"><i class="material-icons left">work</i>Trámites y Documentos</a></li>
+    <li><a onclick="location.href='{% url 'salud' %}'"><i class="material-icons left">local_hospital</i>Salud</a></li>
+    <li><a onclick="location.href='{% url 'educacion' %}'"><i class="material-icons left">school</i>Educación</a></li>
+    <li><a onclick="location.href='{% url 'capacitaciones' %}'"><i class="material-icons left">web</i>Capacitaciones</a></li>
+    <li><a onclick="location.href='{% url 'filtrar_consultas' %}'"><i class="material-icons left">people</i>Asistencia</a></li>
+
+    {% if user.is_authenticated %}
+        <li class="hide-on-med-and-down">
+            <a onclick="location.href='{% url 'crear_consulta' %}'">
+                <i class="material-icons left">create_new_folder</i>Crear Consulta
+            </a>
+        </li>
+        <!-- Botón para cerrar sesión -->
+        <li>
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-large blue-grey-text white">Cerrar sesión</button>
+            </form>
+        </li>
+    {% endif %}
+</ul>
+
 <br>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.sidenav');
+        var options = { edge: 'left', draggable: true }; // Opciones de ejemplo
+        var instances = M.Sidenav.init(elems, options);
+    });
+</script>

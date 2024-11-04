@@ -1,0 +1,16 @@
+{% include 'navbar.html' %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn-large waves-effect waves-light light-blue darken-4">Crear Consulta</button>
+</form>
+<!-- JavaScript de inicialización de Materialize -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+    });
+</script>

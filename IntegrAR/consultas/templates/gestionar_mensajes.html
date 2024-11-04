@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestionar Mensajes</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container">
+        <h1>Mensajes Recibidos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Mensaje</th>
+                    <th>Usuario</th>
+                    <th>Nombre Completo</th>
+                    <th>Usuario Mail</th>
+                    <th>Mail</th>
+                    <th>Ubicacion</th>
+                    <th>Area</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mensaje in mensajes %}
+                    <tr>
+                        <td>{{ mensaje.titulo }}</td>
+                        <td>{{ mensaje.mensaje }}</td> 
+                        <td>{{ mensaje.usuario.first_name }} {{ mensaje.usuario.last_name }}</td>
+                        <td>{{ mensaje.nombre }} {{ mensaje.apellido }}</td>
+                        <td>{{ mensaje.usuario.email }}</td>
+                        <td>{{ mensaje.email }}</td>
+                        <td>{{ mensaje.ubicacion }}</td>
+                        <td>{{ mensaje.area }}</td>
+                        <td>
+                            <a href="#respuesta-{{ mensaje.id }}" class="btn">Responder</a>
+
+                            <!-- Formulario para responder -->
+                            <div id="respuesta-{{ mensaje.id }}" class="modal">
+                                <div class="modal-content">
+                                    <h5>Responder a {{ mensaje.titulo }}</h5>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        {{ form.as_p }}
+                                        <input type="hidden" name="mensaje_id" value="{{ mensaje.id }}">
+                                        <button type="submit" class="btn">Enviar Respuesta</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">No hay mensajes.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% include 'footer.html' %}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+        });
+    </script>
+</body>
+</html>

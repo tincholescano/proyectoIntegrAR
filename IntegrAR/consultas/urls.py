@@ -16,4 +16,10 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('registro/', views.registro, name='registro'),
+    path('administrar-usuarios/', views.administrar_usuarios, name='administrar_usuarios'),
+    path('especificaNueva/', views.crear_consulta_especifica, name='especificaNueva'),
+    path('filtrar/', views.filtrar_consultas, name='filtrar_consultas'),
+    path('enviar_mensaje/', views.enviar_mensaje, name='enviar_mensaje'),
+    path('gestionar_mensajes/', views.gestionar_mensajes, name='gestionar_mensajes'),
+    path('mis-consultas/', views.mis_consultas, name='mis_consultas'),
 ]

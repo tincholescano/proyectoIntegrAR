@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Enviar Mensaje</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.titulo.label }} {{ form.titulo }}<br>
+        {{ form.mensaje.label }} {{ form.mensaje }}<br>
+        
+        {% if not user.is_authenticated %}
+            {{ form.nombre.label }} {{ form.nombre }}<br>
+            {{ form.apellido.label }} {{ form.apellido }}<br>
+            {{ form.telefono.label }} {{ form.telefono }}<br>
+            {{ form.email.label }} {{ form.email }}<br>
+            {{ form.nucleo_familiar.label }} {{ form.nucleo_familiar }}<br>
+        {% endif %}
+        
+        {{ form.ubicacion.label }} {{ form.ubicacion }}<br>
+        {{ form.area.label }} {{ form.area }}<br>
+        <button type="submit" class="btn-large light-blue darken-4">Enviar</button>
+    </form>
+    
+
+    {% include 'footer.html' %}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+        });
+    </script>
+</body>
+</html>

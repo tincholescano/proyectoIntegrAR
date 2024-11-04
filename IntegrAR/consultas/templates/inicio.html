@@ -1,47 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
+    
 <body>
     {% include 'navbar.html' %}
-    <div class="row center">
-        <div class="row col s12">
-            <a onclick="location.href='{% url 'tramites' %}'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">work</i>Tramites y Documentos</a>
+    <div class="row">
+        <div class="row col s6">
+            <a onclick="location.href='{% url 'tramites' %}'" class="waves-effect waves-light btn-large white light-blue-text text-darken-4"><i class="material-icons left">work</i>Tramites y Documentos</a>
         </div>
-        <div class="row col s12">    
-            <a onclick="location.href='{% url 'salud' %}'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">local_hospital</i>Salud</a>
+        <div class="row col s6">    
+            <a onclick="location.href='{% url 'salud' %}'" class="waves-effect waves-light btn-large white light-blue-text text-darken-4"><i class="material-icons left">local_hospital</i>Salud</a>
         </div>
-        <div class="row">    
-            <a onclick="location.href='{% url 'educacion' %}'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">school</i>Educacion</a>
+        <div class="row col s6">    
+            <a onclick="location.href='{% url 'educacion' %}'" class="waves-effect waves-light btn-large white light-blue-text text-darken-4"><i class="material-icons left">school</i>Educacion</a>
         </div>
-        <div class="row">    
-            <a onclick="location.href='{% url 'capacitaciones' %}'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">web</i>Capacitaciones</a>
+        <div class="row col s6">    
+            <a onclick="location.href='{% url 'capacitaciones' %}'" class="waves-effect waves-light btn-large white light-blue-text text-darken-4"><i class="material-icons left">web</i>Capacitaciones</a>
         </div>
-        <div class="row">    
-            <a onclick="location.href='#'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">people</i>Asistencia</a>
+        <div class="row col s6">    
+            <a onclick="location.href='{% url 'filtrar_consultas' %}'" class="waves-effect waves-light btn-large white light-blue-text text-darken-4"><i class="material-icons left">people</i>Asistencia</a>
         </div>
             {% if user.is_authenticated %}
-                <div class="row">    
-                    <a onclick="location.href='{% url 'crear_consulta' %}'" class="waves-effect waves-light btn-large white blue-grey-text"><i class="material-icons left">create_new_folder</i>Crear Consulta</a>
+                <div class="row col s6">    
+                    <a onclick="location.href='{% url 'crear_consulta' %}'" class="waves-effect waves-light btn-large white light-blue-text text-darken-4"><i class="material-icons left">note_add</i>Crear Consulta</a>
+                </div>
+                <div class="row col s6">    
+                    <a onclick="location.href='{% url 'administrar_usuarios' %}'" class="waves-effect waves-light btn-large white light-blue-text text-darken-4"><i class="material-icons left">group</i>Administrar Usuarios</a>
+                </div>
+                <div class="row col s6">    
+                    <a onclick="location.href='{% url 'especificaNueva' %}'" class="waves-effect waves-light btn-large white light-blue-text text-darken-4"><i class="material-icons left">playlist_add</i>Crear Consulta Especifica</a>
+                </div>
+                <div class="row col s6">    
+                    <a onclick="location.href='{% url 'gestionar_mensajes' %}'" class="waves-effect waves-light btn-large white light-blue-text text-darken-4"><i class="material-icons left">message</i>Ver Consultas</a>
+                </div>
+                <div class="row col s6">    
+                    <a onclick="location.href='{% url 'mis_consultas' %}'" class="waves-effect waves-light btn-large white light-blue-text text-darken-4"><i class="material-icons left">library_books</i>Mis Consultas</a>
                 </div>
             {% endif %}
-    </div>
-        <h1>Noticias</h1>
-
-    <div class="row">
-        <div class="col s6 m4">
-            {% for consulta in consultas %}
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">{{ consulta.titulo }}</span>
-                    <p>{{ consulta.descripcion }}</p>
-                </div>
-            </div>
-            {% empty %}
-                <p>No hay Noticias.</p>
-            {% endfor %}
         </div>
+
+        {% include 'footer.html' %}
+
+    <div class="light-blue darken-4 white-text">
+        <br>
+        <h1>Novedades</h1>
+        <br>
+    </div>
+    
+    <div class="row">
+        {% for consulta in consultas %}
+        <div class="card col m6 light-blue-text text-darken-4">
+            <div class="card-content">
+            <span class="card-title activator">{{ consulta.titulo }}<i class="material-icons right">add_box
+            </i></span>
+            {% if consulta.enlace %}
+                <p><a href="{{ consulta.enlace }}" target="_blank">Más información</a></p>
+            {% endif %}
+            </div>
+            <div class="card-reveal">
+            <span class="card-title">{{ consulta.titulo }}<i class="material-icons right">close</i></span>
+            <p>{{ consulta.descripcion }}</p>
+            </div>
+        </div>
+        {% empty %}
+            <p>No hay Noticias.</p>
+        {% endfor %}
     </div>
 
-    {% include 'footer.html' %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

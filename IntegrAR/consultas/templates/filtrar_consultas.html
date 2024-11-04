@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        <h1>Filtrar Consultas</h1>
+        <form method="get">
+            <div class="input-field col s6">
+                <select name="ubicacion">
+                    <option value="" disabled {% if not selected_ubicacion %}selected{% endif %}>Seleccione una Ubicación</option>
+                    {% for ubicacion in ubicaciones %}
+                        <option value="{{ ubicacion.id }}" {% if selected_ubicacion == ubicacion.id %}selected{% endif %}>{{ ubicacion.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <label>Ubicación</label>
+            </div>
+            <div class="input-field col s6">
+                <select name="area">
+                    <option value="" disabled {% if not selected_area %}selected{% endif %}>Seleccione un Área</option>
+                    {% for area in areas %}
+                        <option value="{{ area.id }}" {% if selected_area == area.id %}selected{% endif %}>{{ area.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <label>Área</label>
+            </div>
+            <button type="submit" class="btn-large light-blue darken-4">Filtrar</button>
+        </form>
+
+        <h2>Consultas</h2>
+        <div class="row">
+            <ul class="left">
+                {% for consulta in consultas %}
+                    <li>
+                        <strong>{{ consulta.titulo }}</strong><br>
+                        {{ consulta.descripcion }}<br>
+                        <strong>Ubicación:</strong> {{ consulta.ubicacion.nombre }}<br>
+                        <strong>Área:</strong> {{ consulta.area.nombre }}<br>
+                        {% if consulta.enlace %}
+                            <a href="{{ consulta.enlace }}" target="_blank">Más información</a>
+                        {% endif %}
+                    </li>
+                {% empty %}
+                    <li>No se encontraron consultas.</li>
+                {% endfor %}
+            </ul>
+            <ul class="right">
+                <button onclick="location.href='{% url 'enviar_mensaje' %}'" class="waves-effect waves-light btn-large white light-blue-text text-darken-4"><i class="material-icons left">help</i>No pude Resolver mi consulta</button>
+            </ul>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+        });
+    </script>
+</body>
+</html>
